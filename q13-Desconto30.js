@@ -7,5 +7,5 @@ let desconto = valor_inicial - valor_com_desconto
 
 console.log(`
 O valor inserido foi de: R$${valor_inicial};
-O valor com desconto de 70% é de: R$${valor_com_desconto};
+O valor com desconto de 30% é de: R$${valor_com_desconto};
 Você economizou R$${desconto} com a compra.`)

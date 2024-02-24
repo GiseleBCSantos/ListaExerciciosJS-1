@@ -32,7 +32,6 @@ function validar_data(dia, mes, ano){
 
 
 function texto_validar_data(value){
-    console.log(value)
     if (value === true){
         return 'válida'
     }

@@ -6,7 +6,7 @@ export function get_number(text){
 
 export function get_valid_number(text){
     let number = get_number(text)
-    if (number < 1){
+    if (number < 0){
         return get_valid_number(text)
     }
     return number   

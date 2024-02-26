@@ -20,3 +20,10 @@ export function get_integer_number(text){
     }
     return get_integer_number(text)
 }
+
+export function eh_par(number){
+    if (number % 2 === 0){
+        return 'é par'
+    }
+    return 'é ímpar'
+}

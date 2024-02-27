@@ -28,9 +28,16 @@ function calcular_delta(a, b, c){
 
 
 function calcular_raizes(a, b, delta){
-    let raiz1 = (-1*b + delta**0.5) / 2*a
-    let raiz2 = (-1*b -1*(delta**0.5)) / 2*a
+    let raiz1_numerador = (-1*b + delta**0.5)
+    let raiz2_numerador = (-1*b - delta**0.5)
+
+    let raiz_denominador = 2*a
+
+    let raiz1 = raiz1_numerador / raiz_denominador
+    let raiz2 = raiz2_numerador / raiz_denominador
+    
     return `raiz 1 é igual a ${raiz1} e a raiz 2 é igual a ${raiz2}`
 }
+
 
 main()

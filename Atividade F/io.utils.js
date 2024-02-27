@@ -27,3 +27,20 @@ export function eh_par(number){
     }
     return 'é ímpar'
 }
+
+export function validar_data(dia, mes, ano){
+    if (dia > 31 || mes > 12){
+        return false
+    }
+    else if (dia > 30 && (mes === 4 || mes === 6 || mes === 9 || mes === 11)){
+        return false
+    }
+    else if (mes === 2 && dia > 29){
+        return false
+    }
+    else if (mes === 2 && dia > 28 && ano % 4 !== 0){
+        return false
+    }
+
+    return true
+}

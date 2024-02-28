@@ -4,12 +4,12 @@ function main(){
     const valor_hora = get_valid_number('Insira quanto voce ganha por hora: ')
     const horas_trabalhadas = get_valid_number('Insira quantas horas voce trabalha por mes: ')
 
-    const salario_bruto = calcular_salario(valor_hora, horas_trabalhadas)
+    const salario_bruto = calcular_salario_bruto(valor_hora, horas_trabalhadas)
 
-    const percentagem_IR = calcular_percentagem_IR(salario_bruto)
-    const desconto_IR = calcular_IR(salario_bruto, percentagem_IR)
+    const percentagem_IR = determinar_percentagem_IR(salario_bruto)
+    const desconto_IR = calcular_desconto_IR(salario_bruto, percentagem_IR)
 
-    const desconto_sindicato = calcular_sindicato(salario_bruto)
+    const desconto_sindicato = calcular_desconto_sindicato(salario_bruto)
 
     const desconto_INSS = calcular_desconto_inss(salario_bruto)
 
@@ -42,20 +42,25 @@ function calcular_total_descontos(descontoIR, descontoSindic, descontoINSS){
 }
 
 
-function calcular_salario(valor_hora, horas){
-    return valor_hora *  horas
-}
 
-function calcular_IR(salario_bruto, percentagem){
+function calcular_desconto_IR(salario_bruto, percentagem){
     return salario_bruto * (percentagem /100)
 }
 
-function calcular_sindicato(salario_bruto){
+function calcular_desconto_sindicato(salario_bruto){
     return salario_bruto*0.03
 }
 
+function calcular_desconto_inss(salario_bruto){
+    return salario_bruto*0.1
+}
 
-function calcular_percentagem_IR(salario_bruto){
+
+function calcular_fgts(salario_bruto){
+    return salario_bruto* 0.11
+}
+
+function determinar_percentagem_IR(salario_bruto){
     if (salario_bruto <= 900){
         return 0
     }
@@ -69,13 +74,8 @@ function calcular_percentagem_IR(salario_bruto){
 }
 
 
-function calcular_desconto_inss(salario_bruto){
-    return salario_bruto*0.1
-}
-
-
-function calcular_fgts(salario_bruto){
-    return salario_bruto* 0.11
+function calcular_salario_bruto(valor_hora, horas){
+    return valor_hora *  horas
 }
 
 main()

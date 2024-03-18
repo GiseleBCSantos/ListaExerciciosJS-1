@@ -4,6 +4,18 @@ export function get_number(text){
     return Number(question(text))
 }
 
+export function get_number_in_range(min, max, text){
+    let number = Number(question(text))
+    if (number >= min && number <= max){
+        return number
+    }
+    return get_number_in_range(min, max, text)
+}
+
+export function get_text(text){
+    return question(text)
+}
+
 export function get_valid_number(text){
     let number = get_number(text)
     if (number < 0){

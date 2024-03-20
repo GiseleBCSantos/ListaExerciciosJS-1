@@ -13,7 +13,7 @@ function main(){
 function calcular_termos_pg(razao, primeiro_termo, ultimo_termo){
     let posicao = 1
     let termo_atual = primeiro_termo
-    while (termo_atual < ultimo_termo){
+    while (termo_atual <= ultimo_termo){
         console.log(`O termo da posição n° ${posicao} = ${termo_atual}`)
         termo_atual *= razao
         posicao++

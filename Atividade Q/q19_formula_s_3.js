@@ -13,12 +13,8 @@ function calcular_formula_s(n){
     let numero = 1
     let posicao = 1
     for (let i = n; i >= 1; i--){
-        if (posicao % 2 === 1){
-            resultado += numero/i
-        }
-        else{
-            resultado -= i/numero
-        }
+        posicao % 2 === 1 ? resultado += numero/i : resultado -= i/numero
+
         numero++
         posicao++
     }

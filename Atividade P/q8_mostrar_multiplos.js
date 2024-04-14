@@ -10,7 +10,7 @@ function main(){
 
 function mostrar_multiplos(numero, limite_superior, limite_inferior){
     for (let i = limite_inferior; i <= limite_superior; i++){
-        if (i % numero == 0){
+        if (i % numero === 0){
             console.log(`${i} é um multiplo de ${numero}`)
         }
     }

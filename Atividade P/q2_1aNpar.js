@@ -8,7 +8,7 @@ function main(){
 
 function mostrar_1aN_par(limite){
     for (let i = 1; i <= numero_limite; i++){
-        if (i % 2 == 0){
+        if (i % 2 === 0){
             console.log(`Número = ${i}`)
         }
     }

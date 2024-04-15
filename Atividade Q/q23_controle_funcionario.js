@@ -8,7 +8,7 @@ function main(){
 
     while (contador < qntd_funcionarios){
         const cod = get_integer_positive_number('Insira o codigo do funcionario: ')
-        const horas_trabalhadas = get_text('Insira a quantidade de horas trabalhadas: ')
+        const horas_trabalhadas = get_valid_number('Insira a quantidade de horas trabalhadas: ')
         const num_dependentes = get_valid_number('Insira o numero de dependentes: ')
 
         const salario_bruto = calcular_salario(horas_trabalhadas, num_dependentes)

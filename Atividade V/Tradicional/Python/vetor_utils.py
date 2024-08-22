@@ -14,19 +14,28 @@ def carregar_numeros_arquivo(nome_arquivo):
     linhas = arquivo.readlines()
 
     for linha in linhas:
-        vetor.append(int(linha.replace('\n', '')))
+        if "." in linha:
+            vetor.append(float(linha.replace('\n', '')))
+        else:
+            vetor.append(int(linha.replace("\n", '')))
     
     return vetor
 
 
 
 def show_vetor_numbers(vetor):
+    string = ''
     if not vetor_valido(vetor):
         print("Vetor vazio, inicialize um vetor primeiro!")
     else:
         print("**** Números do vetor ****")
         for number in vetor:
-            print("> " , number)
+            if number > 0:
+                string += f"\033[92m {number} \033[0m\t"
+            if number < 0:
+                string += f"\033[91m {number} \033[0m\t"
+    print(string)
+
 
 def show_positive_numbers(vetor):
     print("*** Numeros positivos ***")

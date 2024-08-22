@@ -37,12 +37,16 @@ def main():
             press_enter_to_continue()
 
         if resposta == 3:
-            print('2')
+            number = int(input("Por qual numero voce deseja trocar cada elemento do vetor? "))
+            vetor = resetar_vetor(vetor, number)
+            show_loading("Trocando elementos...", "Elementos trocados com sucesso!")
+            print("Novo vetor: ", vetor)
 
         
         if resposta == 4:
             show_quantidade_itens_vetor(vetor)
             press_enter_to_continue()
+
 
         if resposta == 5:
             mostrar_menor_maior_index(vetor)

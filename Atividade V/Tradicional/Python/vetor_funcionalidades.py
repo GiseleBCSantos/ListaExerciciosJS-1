@@ -30,12 +30,22 @@ def mostrar_opcoes_inicializar_vetor_numerico():
 """)
     
 
+def resetar_vetor(vetor, num):
+    new_vetor = []
+
+    for i in range(len(vetor)):
+        new_vetor.append(num)
+
+    return new_vetor
+    
+
 def mostrar_menor_maior_index(vetor):
     if vetor_valido(vetor):
         menor_num = obter_menor_num(vetor)
         index_menor_num = obter_posicao_menor_num(vetor)
         maior_num = obter_maior_num(vetor)
         index_maior_num = obter_posicao_maior_num(vetor)
+
 
         print(f"""
 > Menor numero do vetor: {menor_num}

@@ -129,7 +129,6 @@ def main():
 
 
         if resposta == 13:
-            print("Vetor atual: ", vetor)
             vetor = remover_valores_posicao(vetor)
             print("Novo vetor: ", vetor)
             press_enter_to_continue()

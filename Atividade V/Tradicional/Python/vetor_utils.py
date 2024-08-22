@@ -98,7 +98,8 @@ def remover_valores_vetor(vetor):
         print("Vetor: ",vetor)
         number = int(input("Qual numero deseja remover do vetor? "))
         if number in vetor:
-            vetor.remove(number)
+            while number in vetor:
+                vetor.remove(number)
         else:
             print("Numero nao esta no vetor.")
     
@@ -106,7 +107,11 @@ def remover_valores_vetor(vetor):
 
 
 def remover_valores_posicao(vetor):
-    posicao = get_number("Insira a posicao do numero que deseja remover: ")
+    string = ''
+    for i in range(len(vetor)):
+        string += f" ({i+1} - {vetor[i]}) \t"
+    print(string)
+    posicao = get_number("Insira a posicao do numero que deseja remover: ") - 1
     vetor.remove(vetor[posicao])
 
     return vetor

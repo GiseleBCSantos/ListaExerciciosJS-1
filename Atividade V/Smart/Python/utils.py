@@ -34,9 +34,9 @@ def get_random_in_range(min, max):
 
 def show_loading(text_before, text_after):
     print(text_before)
-    time.sleep(2)
-    print(text_after)
     time.sleep(1)
+    print(text_after)
+    time.sleep(0.5)
 
 
 def limpar_tela():

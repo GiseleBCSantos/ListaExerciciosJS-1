@@ -18,35 +18,20 @@ def main():
         if resposta == 1:
             mostrar_opcoes_inicializar_vetor_numerico()
             resposta_opcao1 = get_number_in_range(">> ", 1, 2)
+            vetor = gerar_vetor(resposta_opcao1)
 
-            if resposta_opcao1 == 1:
-                tamanho = get_positive_number("Insira o tamanho do seu vetor desejado: ")
-                min = get_number("Insira o valor minimo do vetor: ")
-                max = get_number("Insira o valor maximo do vetor: ")
-
-                vetor = criar_vetor_aleatorio(tamanho, min, max)
-
-                show_loading("Salvando seus dados...", "Dados salvos")
-            
-            if resposta_opcao1 == 2:
-                show_loading("Seus valores estão sendo carregados...", "Valores carregados com sucesso!!!")
-                vetor = carregar_numeros_arquivo("numeros.txt")
 
         if resposta == 2:
             show_vetor_numbers(vetor)
             press_enter_to_continue()
 
-        if resposta == 3:
-            number = int(input("Por qual numero voce deseja trocar cada elemento do vetor? "))
-            vetor = map(vetor, trocar_elementos(number))
-            show_loading("Trocando elementos...", "Elementos trocados com sucesso!")
-            print("Novo vetor: ", vetor)
 
+        if resposta == 3:
+            vetor = reset_vetor_numbers(vetor)
+            
         
         if resposta == 4:
-            # show_quantidade_itens_vetor(vetor)
-            qntd_itens_vetor = len(vetor)
-            print("Quantidade de itens: ", qntd_itens_vetor)
+            show_quantidade_itens_vetor(vetor)
             press_enter_to_continue()
 
 
@@ -55,96 +40,49 @@ def main():
             press_enter_to_continue()
 
             
-
         if resposta == 6:
             mostrar_somatorio_vetor(vetor)
             press_enter_to_continue()
+
 
         if resposta == 7:
             mostrar_media_vetor(vetor)
             press_enter_to_continue()
 
+
         if resposta == 8:
-            show_positive_qnt_numbers(vetor)
+            show_numbers_qntd(vetor, positive_number, "positivos")
             press_enter_to_continue()
+
 
         if resposta == 9:
-            show_negative_qnt_numbers(vetor)
+            show_numbers_qntd(vetor, negative_number, "negativos")
             press_enter_to_continue()
 
+
         if resposta == 10:
-            mostrar_opcoes_atualizar_valores()
-            resposta_opcao10 = get_number_in_range(">> ",1, 6)
-
-            if resposta_opcao10 == 1:
-                print("Vetor atual: ", vetor)
-                multiplo = get_number("Por qual numero deseja multiplicar todos elementos do vetor? ")
-                vetor = map(vetor, multiplicar, multiplo)
-                # vetor = multiplicar_elementos(vetor, multiplo)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
-            if resposta_opcao10 == 2:
-                print("Vetor atual: ", vetor)
-                expoente = get_number("Por qual numero deseja elevar todos elementos do vetor? ")
-                vetor = map(vetor, elevar, expoente)
-                # vetor = elevar_elementos(vetor, expoente)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
-            if resposta_opcao10 == 3:
-                print("Vetor atual: ", vetor)
-                fracao = get_number("Por qual numero deseja fracionar todos elementos do vetor? ")
-                vetor = map(vetor, dividir, fracao)
-                # vetor = fracionar_elementos(vetor, fracao)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
-            if resposta_opcao10 == 4:
-                print("Vetor atual: ", vetor)
-                min = get_number("Valor minimo: ")
-                max = get_number("Valor maximo: ")
-                vetor = map(vetor, substituir_negativo_por_aleatorio, aleatorio(min, max))
-                # vetor = substituir_negativos(vetor)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
-            if resposta_opcao10 == 5:
-                print("Vetor atual: ", vetor)
-                vetor = ordenar_vetor(vetor)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
-            if resposta_opcao10 == 6:
-                print("Vetor atual: ", vetor)
-                vetor = embaralhar_vetor(vetor)
-                print("Novo vetor: ", vetor)
-                press_enter_to_continue()
-
+            mostrar_opcoes_atualizar_valores(vetor)
+            if vetor_valido(vetor):
+                resposta_opcao10 = get_number_in_range(">> ",1, 6)
+                vetor = modificar_vetor(vetor, resposta_opcao10)
+            press_enter_to_continue()
+            
 
         if resposta == 11:
-            print("Vetor atual: ", vetor)
-            vetor = adicionar_novos_valores(vetor)
-            print("Novo vetor: ", vetor)
+            vetor = vector_operation(vetor, add_number)
             press_enter_to_continue()
 
         if resposta == 12:
-            print("Vetor atual: ", vetor)
-            vetor = remover_valores_vetor(vetor)
-            print("Novo vetor: ", vetor)
+            vetor = vector_operation(vetor, remove_number)
             press_enter_to_continue()
-
 
 
         if resposta == 13:
             vetor = remover_valores_posicao(vetor)
-            print("Novo vetor: ", vetor)
             press_enter_to_continue()
 
         if resposta == 14:
-            print("Vetor atual: ", vetor)
             vetor = editar_valor_por_posicao(vetor)
-            print("Novo vetor: ", vetor)
             press_enter_to_continue()
 
         if resposta == 15:
@@ -158,9 +96,5 @@ def main():
             app_on = False
 
         
-        
-
-
-
 if __name__ == '__main__':
     main()

@@ -1,20 +1,34 @@
-import { print } from "../io.utils.js"
-import { torreCompleta, fill_tower, show_tower, show_menu, receber_operacao , mover, limpar_tela} from "./utils_hanoi.js"
+import { get_text, print } from "../io.utils.js"
+import { torreCompleta, fill_tower, show_menu, receber_operacao , mover, limpar_tela, press_enter_to_continue, get_quantidade_jogadas, get_campeao, run_game} from "./utils_hanoi.js"
 
 function main(){
     const torreR = []
     const torreG = []
     const torreB = []
 
-    fill_tower(torreR)
-    // show_tower(torreR)
+    let operacoes_jogador_1 = []
+    let operacoes_jogador_2 = []
 
-    while (! torreCompleta(torreR, 'r') || ! torreCompleta(torreG, 'g') || ! torreCompleta(torreB, 'b')){
-        limpar_tela()
-        show_menu(torreR, torreG, torreB)
-        let operacao = receber_operacao('>> ')
-        mover(operacao, torreR, torreG, torreB)
-    }
+    fill_tower(torreR)
+
+    let nome_jogador1 = get_text("Qual seu nome? ")
+    run_game([...torreR], [...torreG], [...torreB], operacoes_jogador_1, nome_jogador1)
+    let qnt_jogadas_jogador1 = get_quantidade_jogadas(operacoes_jogador_1)
+    print(`${nome_jogador1} ganhou em ${qnt_jogadas_jogador1} jogadas.`)
+    press_enter_to_continue()
+
+    limpar_tela()
+    let nome_jogador2 = get_text("Qual seu nome? ")
+    run_game([...torreR], [...torreG], [...torreB], operacoes_jogador_2, nome_jogador2)
+    let qnt_jogadas_jogador2 = get_quantidade_jogadas(operacoes_jogador_2)
+    print(`${nome_jogador2} ganhou em ${qnt_jogadas_jogador2} jogadas.`)
+    press_enter_to_continue()
+
+    let ganhador = get_campeao(qnt_jogadas_jogador1, nome_jogador1, qnt_jogadas_jogador2, nome_jogador2)
+    print(ganhador)
+
+
+
 
 }
 

@@ -2,11 +2,17 @@ import { get_random_in_range, get_text, print } from "../io.utils.js";
 
 export function show_menu(torreR, torreG, torreB){
     print(`
-R: ${show_tower(torreR)}
-G: ${show_tower(torreG)}
-B: ${show_tower(torreB)}
+${show_towers(torreR, torreG, torreB)}
 
 >> Escreva a operacao desejada indicando a torre origem e a torre destino (Ex.: RG da torre R para a torre G): 
+`)
+}
+
+export function show_towers(torreR, torreG, torreB){
+    print(`
+Torre R: |${show_tower(torreR)}
+Torre G: |${show_tower(torreG)}
+Torre B: |${show_tower(torreB)}
 `)
 }
 
@@ -28,15 +34,17 @@ export function fill_tower(torre){
     }
 }
 
-
-
-
-
-
-
-
-
-
+export function run_game(torreR, torreG, torreB, operacoes_jogador, nome){
+    while (! torreCompleta(torreR, 'r') || ! torreCompleta(torreG, 'g') || ! torreCompleta(torreB, 'b')){
+        limpar_tela()
+        print("Jogador atual: "+ nome)
+        show_menu(torreR, torreG, torreB)
+        let operacao = receber_operacao('>> ')
+        mover(operacao, torreR, torreG, torreB)
+        operacoes_jogador.push(operacao)
+    }
+    show_towers(torreR, torreG, torreB)
+}
 
 
 export function mover(operacao, torreR, torreG, torreB){
@@ -102,5 +110,18 @@ export function limpar_tela(){
 }
 
 export function press_enter_to_continue(){
-    let _ = question()
+    let _ = get_text('ENTER to continue...')
+}
+
+export function get_quantidade_jogadas(vetor){
+    return vetor.length
+}
+
+export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_jogador2){
+    if (qnt_jogador1 === qnt_jogador2){
+        return "Houve um empate! Joguem novamente para desempatar."
+    }
+    let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador1 : nome_jogador2
+    return `E o campeao é o jogador: ${ganhador}!`
+    
 }

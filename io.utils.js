@@ -82,3 +82,9 @@ export function eh_consoante(letra){
 export function deleteFirstElement(frase){
     return frase.slice(1)
 }
+
+export function get_random_in_range(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}

@@ -1,5 +1,5 @@
 import { get_text, print } from "../io.utils.js"
-import { torreCompleta, fill_tower, show_menu, receber_operacao , mover, limpar_tela, press_enter_to_continue, get_quantidade_jogadas, get_campeao, run_game} from "./utils_hanoi.js"
+import { torreCompleta, fill_towers, show_menu, receber_operacao , mover, limpar_tela, press_enter_to_continue, get_quantidade_jogadas, get_campeao, run_game, choose_level} from "./utils_hanoi.js"
 
 function main(){
     const torreR = []
@@ -9,7 +9,9 @@ function main(){
     let operacoes_jogador_1 = []
     let operacoes_jogador_2 = []
 
-    fill_tower(torreR)
+    let nivel = choose_level()
+
+    fill_towers(torreR, torreG, torreB, nivel)
 
     let nome_jogador1 = get_text("Qual seu nome? ")
     run_game([...torreR], [...torreG], [...torreB], operacoes_jogador_1, nome_jogador1)

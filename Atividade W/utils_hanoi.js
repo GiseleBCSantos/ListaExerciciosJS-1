@@ -1,4 +1,4 @@
-import { get_random_in_range, get_text, print } from "../io.utils.js";
+import { get_number_in_range, get_random_in_range, get_text, print } from "../io.utils.js";
 
 export function show_menu(torreR, torreG, torreB){
     print(`
@@ -27,10 +27,27 @@ export function show_tower(torre){
     return string
 }
 
-export function fill_tower(torre){
+export function fill_towers(torreR, torreG, torreB, nivel){
     let opcoes = 'RGB'
-    for (let i=0;i<9;i++){
-        torre.push(opcoes[get_random_in_range(0, 2)])
+    if (nivel === 1){
+        for (let i=0;i<9;i++){
+            torreR.push(opcoes[get_random_in_range(0, 2)])
+        }
+    }
+    else if(nivel === 2){
+        let quantidade_itens = get_number_in_range(1, 9,"Quantos itens voce deseja que tenha nas 3 torres? (1 a 9): ")
+        for(let i=0;i<=quantidade_itens;i++){
+            torreR.push(opcoes[get_random_in_range(0, 2)])
+            torreG.push(opcoes[get_random_in_range(0, 2)])
+            torreB.push(opcoes[get_random_in_range(0, 2)])
+        }
+    }
+    else{
+        for(let i=0;i<8;i++){
+            torreR.push(opcoes[get_random_in_range(0, 2)])
+            torreG.push(opcoes[get_random_in_range(0, 2)])
+            torreB.push(opcoes[get_random_in_range(0, 2)])
+        }
     }
 }
 
@@ -121,7 +138,18 @@ export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_joga
     if (qnt_jogador1 === qnt_jogador2){
         return "Houve um empate! Joguem novamente para desempatar."
     }
-    let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador1 : nome_jogador2
+    let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador2 : nome_jogador1
     return `E o campeao é o jogador: ${ganhador}!`
     
+}
+
+export function choose_level(){
+    let level_text = `
+Escolha um nivel para jogar:
+1) Nivel Basico
+2) Nivel Intermediario
+3) Nivel Avancado
+`
+    let level = get_number_in_range(1, 3,level_text)
+    return level
 }

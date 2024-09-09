@@ -1,24 +1,25 @@
 function main(){
-    console.log(fibonacci(2))
+    let vector = []
+    console.log(show_fibonacci(20, vector))
 }
 
 function fibonacci(n){
-    const vector = []
-
     if (n == 1){
-        vector.push(1)
+        return 0
     }
     if (n == 2){
-        console.log(fibonacci(n-1))
-        console.log(n)
-        vector.push(fibonacci(n-1) + n)
+        return 1
     }
+    return fibonacci(n-1) + fibonacci(n-2)
+}
 
-    
-
+function show_fibonacci(n, vector){
+    if (n == 0){
+        return vector
+    }
+    vector.splice(0,0,fibonacci(n))
+    show_fibonacci(n-1, vector)
     return vector
-
-
 }
 
 main()

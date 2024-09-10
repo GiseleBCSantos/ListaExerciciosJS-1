@@ -4,26 +4,27 @@ export function show_menu(torreR, torreG, torreB){
     print(`
 ${show_towers(torreR, torreG, torreB)}
 
+
 >> Escreva a operacao desejada indicando a torre origem e a torre destino (Ex.: RG da torre R para a torre G): 
 `)
 }
 
 export function show_towers(torreR, torreG, torreB){
-    print(`
-Torre R: |${show_tower(torreR)}
-Torre G: |${show_tower(torreG)}
-Torre B: |${show_tower(torreB)}
-`)
+    return `
+\x1b[31mTorre R\x1b[0m: |${show_tower(torreR)}
+\x1b[32mTorre G\x1b[0m: |${show_tower(torreG)}
+\x1b[34mTorre B\x1b[0m: |${show_tower(torreB)} 
+`
 }
 
 export function show_tower(torre){
     let string = ''
     for (let element of torre){
-        string += ' ' + element + ' '
+        string += ` ${element.toLowerCase() === 'r' ? '\x1b[31m' : element.toLowerCase() === 'g' ? '\x1b[32m' : '\x1b[34m'}` + element + '\x1b[0m '
     }
-    while (string.length <= 24){
-        string += ' - '
-    }
+    // while (string.length/18 <= 9){
+    //     string += ' - '
+    // }
     return string
 }
 
@@ -36,18 +37,19 @@ export function fill_towers(torreR, torreG, torreB, nivel){
     }
     else if(nivel === 2){
         let quantidade_itens = get_number_in_range(1, 9,"Quantos itens voce deseja que tenha nas 3 torres? (1 a 9): ")
-        for(let i=0;i<=quantidade_itens;i++){
-            torreR.push(opcoes[get_random_in_range(0, 2)])
-            torreG.push(opcoes[get_random_in_range(0, 2)])
-            torreB.push(opcoes[get_random_in_range(0, 2)])
-        }
+        preencher_torres(torreR, torreG, torreB, quantidade_itens, opcoes)
     }
     else{
-        for(let i=0;i<8;i++){
-            torreR.push(opcoes[get_random_in_range(0, 2)])
-            torreG.push(opcoes[get_random_in_range(0, 2)])
-            torreB.push(opcoes[get_random_in_range(0, 2)])
-        }
+        preencher_torres(torreR, torreG, torreB, 8)
+    }
+}
+
+
+export function preencher_torres(torreR, torreG, torreB, quantidade, opcoes){
+    for(let i=0;i<quantidade;i++){
+        torreR.push(opcoes[get_random_in_range(0, 2)])
+        torreG.push(opcoes[get_random_in_range(0, 2)])
+        torreB.push(opcoes[get_random_in_range(0, 2)])
     }
 }
 
@@ -139,11 +141,16 @@ export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_joga
         return "Houve um empate! Joguem novamente para desempatar."
     }
     let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador2 : nome_jogador1
-    return `E o campeao é o jogador: ${ganhador}!`
+    return `E o campeao é o jogador: ${ganhador} com ${maior_num(qnt_jogador1, qnt_jogador2)} pontos!`
     
 }
 
+export function maior_num(num1,num2){
+    return num1 > num2 ? num1 : num2
+}
+
 export function choose_level(){
+    limpar_tela()
     let level_text = `
 Escolha um nivel para jogar:
 1) Nivel Basico

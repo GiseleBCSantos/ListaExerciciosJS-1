@@ -22,6 +22,9 @@ export function show_tower(torre){
     for (let element of torre){
         string += ` ${element.toLowerCase() === 'r' ? '\x1b[31m' : element.toLowerCase() === 'g' ? '\x1b[32m' : '\x1b[34m'}` + element + '\x1b[0m '
     }
+    for (let i=9;i>string.length;i--){
+        string += ' - '
+    }
     // while (string.length/18 <= 9){
     //     string += ' - '
     // }
@@ -33,6 +36,9 @@ export function fill_towers(torreR, torreG, torreB, nivel){
     if (nivel === 1){
         for (let i=0;i<9;i++){
             torreR.push(opcoes[get_random_in_range(0, 2)])
+        }
+        if (achar_letra_faltante(torreR)){
+            torreR.splice(get_random_in_range(0, 9), 1, achar_letra_faltante(torreR))
         }
     }
     else if(nivel === 2){
@@ -62,7 +68,6 @@ export function run_game(torreR, torreG, torreB, operacoes_jogador, nome){
         mover(operacao, torreR, torreG, torreB)
         operacoes_jogador.push(operacao)
     }
-    show_towers(torreR, torreG, torreB)
 }
 
 
@@ -85,8 +90,13 @@ export function mover(operacao, torreR, torreG, torreB){
 
 export function mover_elementos(torre1, torre2){
     if (torre1.length > 0){
-        let elemento = torre1.pop()
-        torre2.push(elemento)
+        if (torre2.length < 9){
+            let elemento = torre1.pop()
+            torre2.push(elemento)
+        }
+        else{
+            print("Torre cheia")
+        }
     }
 }
 
@@ -110,6 +120,19 @@ export function receber_operacao(text){
 
 function checar_letra(letra){
     return /[rgb]/.test(letra.toLowerCase())
+}
+
+function achar_letra_faltante(vetor){
+    if (! vetor.includes('R')){
+        return 'R'
+    }
+    if (! vetor.includes('G')){
+        return 'G'
+    }
+    if (! vetor.includes("B")){
+        return "B"
+    }
+    return null
 }
 
 export function torreCompleta(torre, letra){
@@ -137,16 +160,19 @@ export function get_quantidade_jogadas(vetor){
 }
 
 export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_jogador2){
+    print(`
+Jogador ${nome_jogador1}: ${qnt_jogador1} pontos
+Jogador ${nome_jogador2}: ${qnt_jogador2} pontos`)
     if (qnt_jogador1 === qnt_jogador2){
         return "Houve um empate! Joguem novamente para desempatar."
     }
     let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador2 : nome_jogador1
-    return `E o campeao é o jogador: ${ganhador} com ${maior_num(qnt_jogador1, qnt_jogador2)} pontos!`
+    return `E o campeao é o jogador: ${ganhador} com ${menor_num(qnt_jogador1, qnt_jogador2)} pontos!`
     
 }
 
-export function maior_num(num1,num2){
-    return num1 > num2 ? num1 : num2
+export function menor_num(num1,num2){
+    return num1 < num2 ? num1 : num2
 }
 
 export function choose_level(){

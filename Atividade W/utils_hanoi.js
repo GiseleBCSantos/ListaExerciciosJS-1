@@ -22,9 +22,10 @@ export function show_tower(torre){
     for (let element of torre){
         string += ` ${element.toLowerCase() === 'r' ? '\x1b[31m' : element.toLowerCase() === 'g' ? '\x1b[32m' : '\x1b[34m'}` + element + '\x1b[0m '
     }
-    for (let i=9;i>string.length;i--){
-        string += ' - '
-    }
+    // for (let i=27;i>string.length/108;i-=3){
+    //     print(`i=${i}, length=${string.length/108}`)
+    //     string += ' - '
+    // }
     // while (string.length/18 <= 9){
     //     string += ' - '
     // }

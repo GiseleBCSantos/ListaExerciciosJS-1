@@ -11,9 +11,10 @@ ${show_towers(torreR, torreG, torreB)}
 
 export function show_towers(torreR, torreG, torreB){
     return `
-\x1b[31mTorre R\x1b[0m: |${show_tower(torreR)}
-\x1b[32mTorre G\x1b[0m: |${show_tower(torreG)}
-\x1b[34mTorre B\x1b[0m: |${show_tower(torreB)} 
+Torre    | 1  2  3  4  5  6  7  8  9 
+\x1b[31mTorre R: |\x1b[0m${show_tower(torreR)}
+\x1b[32mTorre G: |\x1b[0m${show_tower(torreG)}
+\x1b[34mTorre B: |\x1b[0m${show_tower(torreB)} 
 `
 }
 
@@ -22,13 +23,6 @@ export function show_tower(torre){
     for (let element of torre){
         string += ` ${element.toLowerCase() === 'r' ? '\x1b[31m' : element.toLowerCase() === 'g' ? '\x1b[32m' : '\x1b[34m'}` + element + '\x1b[0m '
     }
-    // for (let i=27;i>string.length/108;i-=3){
-    //     print(`i=${i}, length=${string.length/108}`)
-    //     string += ' - '
-    // }
-    // while (string.length/18 <= 9){
-    //     string += ' - '
-    // }
     return string
 }
 
@@ -43,7 +37,7 @@ export function fill_towers(torreR, torreG, torreB, nivel){
         }
     }
     else if(nivel === 2){
-        let quantidade_itens = get_number_in_range(1, 9,"Quantos itens voce deseja que tenha nas 3 torres? (1 a 9): ")
+        let quantidade_itens = get_number_in_range(5, 9,"Quantos itens voce deseja que tenha nas 3 torres? (5 a 9): ")
         preencher_torres(torreR, torreG, torreB, quantidade_itens, opcoes)
     }
     else{
@@ -69,6 +63,8 @@ export function run_game(torreR, torreG, torreB, operacoes_jogador, nome){
         mover(operacao, torreR, torreG, torreB)
         operacoes_jogador.push(operacao)
     }
+    let qnt_jogadas_jogador = get_quantidade_jogadas(operacoes_jogador)
+    print(`${nome} ganhou em ${qnt_jogadas_jogador} jogadas.`)
 }
 
 
@@ -186,4 +182,9 @@ Escolha um nivel para jogar:
 `
     let level = get_number_in_range(1, 3,level_text)
     return level
+}
+
+export function get_nome_valido(text){
+    let nome = get_text(text)
+    return nome.length > 0 ? nome : get_nome_valido(text)
 }

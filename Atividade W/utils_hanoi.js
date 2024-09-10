@@ -1,5 +1,58 @@
 import { get_number_in_range, get_random_in_range, get_text, print } from "../io.utils.js";
 
+// Funcoes basicas para o funcionamento do jogo
+export function choose_level(){
+    limpar_tela()
+    let level_text = `
+Escolha um nivel para jogar:
+1) Nivel Basico
+2) Nivel Intermediario
+3) Nivel Avancado
+`
+    let level = get_number_in_range(1, 3,level_text)
+    return level
+}
+
+export function fill_towers(torreR, torreG, torreB, nivel){
+    let opcoes = 'RGB'
+    if (nivel === 1){
+        for (let i=0;i<9;i++){
+            torreR.push(opcoes[get_random_in_range(0, 2)])
+        }
+        if (achar_letra_faltante(torreR)){
+            torreR.splice(get_random_in_range(0, 9), 1, achar_letra_faltante(torreR))
+        }
+    }
+    else if(nivel === 2){
+        let quantidade_itens = get_number_in_range(5, 7,"Quantos itens voce deseja que tenha nas 3 torres? (5 a 7): ")
+        preencher_torres(torreR, torreG, torreB, quantidade_itens, opcoes)
+    }
+    else{
+        preencher_torres(torreR, torreG, torreB, 8)
+    }
+}
+
+export function preencher_torres(torreR, torreG, torreB, quantidade, opcoes){
+    for(let i=0;i<quantidade;i++){
+        torreR.push(opcoes[get_random_in_range(0, 2)])
+        torreG.push(opcoes[get_random_in_range(0, 2)])
+        torreB.push(opcoes[get_random_in_range(0, 2)])
+    }
+}
+
+export function run_game(torreR, torreG, torreB, operacoes_jogador, nome){
+    while (! torreCompleta(torreR, 'r') || ! torreCompleta(torreG, 'g') || ! torreCompleta(torreB, 'b')){
+        limpar_tela()
+        print("Jogador atual: "+ nome)
+        show_menu(torreR, torreG, torreB)
+        let operacao = receber_operacao('>> ')
+        mover(operacao, torreR, torreG, torreB)
+        operacoes_jogador.push(operacao)
+    }
+    let qnt_jogadas_jogador = get_quantidade_jogadas(operacoes_jogador)
+    print(`${nome} ganhou em ${qnt_jogadas_jogador} jogadas.`)
+}
+
 export function show_menu(torreR, torreG, torreB){
     print(`
 ${show_towers(torreR, torreG, torreB)}
@@ -26,45 +79,26 @@ export function show_tower(torre){
     return string
 }
 
-export function fill_towers(torreR, torreG, torreB, nivel){
-    let opcoes = 'RGB'
-    if (nivel === 1){
-        for (let i=0;i<9;i++){
-            torreR.push(opcoes[get_random_in_range(0, 2)])
+export function receber_operacao(text){
+    let operacao = get_text(text)
+    let check = true
+    if (operacao.length === 2){
+        for (let letra of operacao){
+            if (! checar_letra(letra)){
+                check = false
+            }
         }
-        if (achar_letra_faltante(torreR)){
-            torreR.splice(get_random_in_range(0, 9), 1, achar_letra_faltante(torreR))
-        }
-    }
-    else if(nivel === 2){
-        let quantidade_itens = get_number_in_range(5, 9,"Quantos itens voce deseja que tenha nas 3 torres? (5 a 9): ")
-        preencher_torres(torreR, torreG, torreB, quantidade_itens, opcoes)
     }
     else{
-        preencher_torres(torreR, torreG, torreB, 8)
+        print("Operacao invalida!")
+        return receber_operacao(text)
     }
+
+    return check ? operacao : receber_operacao(text)
 }
 
-
-export function preencher_torres(torreR, torreG, torreB, quantidade, opcoes){
-    for(let i=0;i<quantidade;i++){
-        torreR.push(opcoes[get_random_in_range(0, 2)])
-        torreG.push(opcoes[get_random_in_range(0, 2)])
-        torreB.push(opcoes[get_random_in_range(0, 2)])
-    }
-}
-
-export function run_game(torreR, torreG, torreB, operacoes_jogador, nome){
-    while (! torreCompleta(torreR, 'r') || ! torreCompleta(torreG, 'g') || ! torreCompleta(torreB, 'b')){
-        limpar_tela()
-        print("Jogador atual: "+ nome)
-        show_menu(torreR, torreG, torreB)
-        let operacao = receber_operacao('>> ')
-        mover(operacao, torreR, torreG, torreB)
-        operacoes_jogador.push(operacao)
-    }
-    let qnt_jogadas_jogador = get_quantidade_jogadas(operacoes_jogador)
-    print(`${nome} ganhou em ${qnt_jogadas_jogador} jogadas.`)
+function checar_letra(letra){
+    return /[rgb]/.test(letra.toLowerCase())
 }
 
 
@@ -91,34 +125,22 @@ export function mover_elementos(torre1, torre2){
             let elemento = torre1.pop()
             torre2.push(elemento)
         }
-        else{
-            print("Torre cheia")
-        }
     }
 }
 
-export function receber_operacao(text){
-    let operacao = get_text(text)
-    let check = true
-    if (operacao.length === 2){
-        for (let letra of operacao){
-            if (! checar_letra(letra)){
-                check = false
-            }
-        }
+export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_jogador2){
+    print(`
+Jogador ${nome_jogador1}: ${qnt_jogador1} pontos
+Jogador ${nome_jogador2}: ${qnt_jogador2} pontos`)
+    if (qnt_jogador1 === qnt_jogador2){
+        return "Houve um empate! Joguem novamente para desempatar."
     }
-    else{
-        print("Operacao invalida!")
-        return receber_operacao(text)
-    }
-
-    return check ? operacao : receber_operacao(text)
+    let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador2 : nome_jogador1
+    return `E o campeao é o jogador: ${ganhador} com ${menor_num(qnt_jogador1, qnt_jogador2)} pontos!`
 }
 
-function checar_letra(letra){
-    return /[rgb]/.test(letra.toLowerCase())
-}
 
+// Corrigir erro de nao aparecer uma letra
 function achar_letra_faltante(vetor){
     if (! vetor.includes('R')){
         return 'R'
@@ -132,6 +154,7 @@ function achar_letra_faltante(vetor){
     return null
 }
 
+// Condicao para finalizacao do game
 export function torreCompleta(torre, letra){
     if (torre.length === 0){
         return false
@@ -144,6 +167,7 @@ export function torreCompleta(torre, letra){
     return true
 }
 
+// Up na visualização
 export function limpar_tela(){
     console.clear()
 }
@@ -152,36 +176,13 @@ export function press_enter_to_continue(){
     let _ = get_text('ENTER to continue...')
 }
 
+// Utils
 export function get_quantidade_jogadas(vetor){
     return vetor.length
 }
 
-export function get_campeao(qnt_jogador1, nome_jogador1, qnt_jogador2, nome_jogador2){
-    print(`
-Jogador ${nome_jogador1}: ${qnt_jogador1} pontos
-Jogador ${nome_jogador2}: ${qnt_jogador2} pontos`)
-    if (qnt_jogador1 === qnt_jogador2){
-        return "Houve um empate! Joguem novamente para desempatar."
-    }
-    let ganhador = qnt_jogador1 > qnt_jogador2 ? nome_jogador2 : nome_jogador1
-    return `E o campeao é o jogador: ${ganhador} com ${menor_num(qnt_jogador1, qnt_jogador2)} pontos!`
-    
-}
-
 export function menor_num(num1,num2){
     return num1 < num2 ? num1 : num2
-}
-
-export function choose_level(){
-    limpar_tela()
-    let level_text = `
-Escolha um nivel para jogar:
-1) Nivel Basico
-2) Nivel Intermediario
-3) Nivel Avancado
-`
-    let level = get_number_in_range(1, 3,level_text)
-    return level
 }
 
 export function get_nome_valido(text){

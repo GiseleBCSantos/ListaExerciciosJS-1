@@ -1,5 +1,3 @@
-
-
 def add(data, atributos, molde_atributos, tipo):
     new_data = {}
     for index in range(len(molde_atributos)):
@@ -10,6 +8,7 @@ def add(data, atributos, molde_atributos, tipo):
 def list_all(data, tipo):
     print(f"*** {tipo} ***")
     if len(list(data[tipo])) > 0:
+        print()
         atributos = list(data[tipo][0].keys())
         for i in range(len(data[tipo])):
             for j in range(len(atributos)):
@@ -41,3 +40,9 @@ def delete(data, tipo, id):
     for item in data[tipo]:
         if item["id"] == id:
             data[tipo].remove(item)
+
+
+def get_contagem(data, tipo):
+    list_all = data[tipo]
+    for i in range(len(list_all)):
+        print(i+1, data[tipo][i]['nome'])

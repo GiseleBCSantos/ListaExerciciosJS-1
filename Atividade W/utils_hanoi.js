@@ -28,7 +28,7 @@ export function fill_towers(torreR, torreG, torreB, nivel){
         preencher_torres(torreR, torreG, torreB, quantidade_itens, opcoes)
     }
     else{
-        preencher_torres(torreR, torreG, torreB, 8)
+        preencher_torres(torreR, torreG, torreB, 8, opcoes)
     }
 }
 

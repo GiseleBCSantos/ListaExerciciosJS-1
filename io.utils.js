@@ -56,3 +56,35 @@ export function validar_data(dia, mes, ano){
 
     return true
 }
+
+export function print(text){
+    console.log(text)
+}
+
+export function menor_numero(n1, n2){
+    return n1 > n2 ? n2 : n1
+}
+
+export function maior_numero(n1, n2){
+    return n1 > n2 ? n1 : n2
+}
+
+export function eh_vogal(letra){
+    let intervalo = /[aeiou]/
+    return intervalo.test(letra)
+}
+
+export function eh_consoante(letra){
+    let intervalo = /[a-z]/
+    return intervalo.test(letra) && ! eh_vogal(letra)
+}
+
+export function deleteFirstElement(frase){
+    return frase.slice(1)
+}
+
+export function get_random_in_range(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}

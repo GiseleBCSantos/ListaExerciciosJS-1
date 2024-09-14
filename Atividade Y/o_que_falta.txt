@@ -1,0 +1,2 @@
+#1 Ao remover um modelo, remover tambem o seu veiculo. Assim como ao remover uma montadora, remover seus modelos e seus veiculos
+#2 Alterar veiculos na sua criacao para iniciar como nao vendido, para so apos ter uma opcao de vender veiculo
